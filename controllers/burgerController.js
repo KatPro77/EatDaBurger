@@ -1,7 +1,11 @@
-var burger = require("../models/burger.js");
+var express = require("express");
+var burger = require("../models/burger");
+var router = express.Router();
+
+
 
 var controller = function(app) {
-	app.get('/', function(req, res) {
+	router.get('/', function(req, res) {
 		burger.all(function(data) {
 			res.render("index", {
 				burgers: data
@@ -9,14 +13,14 @@ var controller = function(app) {
 		});
 	});
 
-	app.post('/', function(req, res) {
+	router.post('/', function(req, res) {
 		burger.new('burger_name', req.body.burger, function(data) {
 			res.redirect('/');
 			console.log(req.body.burger);
 		});
 	});
 
-	app.put('/', function(req, res) {
+	router.put('/', function(req, res) {
 		burger.devour('devoured', 1, 'id', req.body.id, function(data) {
 			res.redirect('/');
 		});
